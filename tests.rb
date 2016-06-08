@@ -3,7 +3,7 @@ require 'minitest/autorun'
 require 'minitest/focus'
 
 require 'minitest/reporters'
-Minitest::Reporters.use! Minitest::Reporters::ProgressReporter.new
+Minitest::Reporters.use! Minitest::Reporters::SpecReporter.new
 
 require 'rack/test'
 require './app'
@@ -89,7 +89,7 @@ class AppTests < Minitest::Test
     user = make_existing_user
     header "Authorization", user.password
 
-    item.listed_by = user
+    item.created_by = user.id
     item.save!
     r = delete "/items/#{item.id}"
 
